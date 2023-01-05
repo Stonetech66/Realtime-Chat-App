@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<head>
+    <title></title>
+</head>
+<body>
+<h1>Groups</h1> 
+<br>
+<hr>
+{% for group in groups %}
+    <u><p><a href="{{ group.get_absolute_url }}">{{group.name }}</p></a></u>
+    {{ group.description }}{% endfor %}
+    <hr>
+    <video width="320" height="240" controls>
+        <source src="http://127.0.0.1:8000/files/Friends_-_10x01_-_The_One_After_Joey_and_Rachel_Kiss_g4cCM8W.mkv", type="video/mp4">
+    </video>
+</body>
+</html>

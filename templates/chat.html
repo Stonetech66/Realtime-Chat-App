@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8'>
+    <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+    <title>{{ group.name }}</title>
+    <meta name='viewport' content='width=device-width, initial-scale=1'>
+
+
+</head>
+<body>
+
+    <h1>{{ group.name }}</h1>
+    <p>online: {{ group.total_users }}</p>
+    {{ pk|json_script:"room-name" }}
+    <br>
+    <hr>
+<div id="messages"></div>
+<form id="form">
+    <input type="'text" name="message"/>
+</form>
+
+    
+</body>
+<script>
+    const access_token=document.cookie('access_token')
+    const room=JSON.parse(document.getElementById('room-name').textContent)
+    const chatsocket=new WebSocket( 
+        'ws://' + window.location.host + '/ws/chat/2/?token='+access_token 
+
+    );
+
+    chatsocket.onmessage = function(e) {
+        const data= JSON.parse(e.data)
+        if (Array.isArray(data)) {
+            for (let index = 0; index < data.length; index++) {
+                const element = data[index];
+                console.log('Data:', element)
+                let messages = document.getElementById('messages')
+                messages.insertAdjacentHTML('beforeend', `<p> ${element['message']}</p><hr></div>`)
+
+            }
+        } else {
+        console.log('Data:', data)
+        let messages = document.getElementById('messages')
+        messages.insertAdjacentHTML('beforeend', `<p> ${data['message']}</p><hr></div>`)
+   
+        }
+ 
+        
+    }
+    let form = document.getElementById('form')
+    form.addEventListener('submit',  (e)=> {
+        e.preventDefault()
+        let message = e.target.message.value
+        chatsocket.send(JSON.stringify({
+            'message':message,
+        },
+        form.reset()
+        ))
+    })
+
+
+
+</script>
+</html>
