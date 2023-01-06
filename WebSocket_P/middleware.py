@@ -1,7 +1,4 @@
 from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework_simplejwt.exceptions import TokenBackendError
-from rest_framework.exceptions import AuthenticationFailed
-from django.utils.translation import gettext_lazy
 import jwt
 from channels.db import database_sync_to_async
 from django.conf import settings

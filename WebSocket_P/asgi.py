@@ -13,13 +13,13 @@ from django.core.asgi import get_asgi_application
 from channels.routing import ProtocolTypeRouter, URLRouter
 from channels.auth import AuthMiddlewareStack
 from channels.security.websocket import AllowedHostsOriginValidator
-import Socket.routing
+import Chat.routing
 from .middleware import JWTMiddleware
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'WebSocket_P.settings')
 
 application = ProtocolTypeRouter({
     'http':get_asgi_application(),
     'websocket': AllowedHostsOriginValidator(
-        JWTMiddleware(URLRouter(Socket.routing.websocket_urls))
+        JWTMiddleware(URLRouter(Chat.routing.websocket_urls))
     ),
 })
