@@ -3,4 +3,4 @@ A Simple Chat API built with DjangoRestFramework. Made use of websockets to enab
 
 ## Features
 - Group chat
-- peer to peer chat
+- real time messaging 
